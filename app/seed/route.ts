@@ -8,6 +8,7 @@ async function seedUsers() {
   console.log('seedUsers function...');
   // console.Consolelog.('seedUsers function...');
   const client = await db.connect();
+  console.log('client:', client);
   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
   await client.sql`
     CREATE TABLE IF NOT EXISTS users (
