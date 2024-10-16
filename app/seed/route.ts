@@ -4,25 +4,15 @@ import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 
 
 
-/*************  ✨ Codeium Command ⭐  *************/
-  /**
-   * This function seeds the `users` table in the database. It creates the table
-   * if it doesn't exist, and inserts the placeholder users from the `placeholder-data`
-   * module into the table. If a user already exists (i.e., there is a conflict on
-   * the `id` column), then the function does nothing.
-   *
-   * @returns {Promise<void[]>} A promise that resolves to an array of the results
-   * of the SQL queries to insert the users, or an empty array if there is an error.
-   */
-/******  8a0b7c10-5f84-4685-af2e-4463b802e8db  *******/
+
 async function seedUsers() {
   console.log('seedUsers function...');
   const pool = await db.connect();
   console.log('client:', pool);
   await pool.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  console.log('created extension...');
   await pool.sql`
     CREATE TABLE IF NOT EXISTS users (
-      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       email TEXT NOT NULL UNIQUE,
       password TEXT NOT NULL
