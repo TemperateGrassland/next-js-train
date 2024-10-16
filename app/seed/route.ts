@@ -4,12 +4,23 @@ import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 
 
 
+/*************  ✨ Codeium Command ⭐  *************/
+  /**
+   * This function seeds the `users` table in the database. It creates the table
+   * if it doesn't exist, and inserts the placeholder users from the `placeholder-data`
+   * module into the table. If a user already exists (i.e., there is a conflict on
+   * the `id` column), then the function does nothing.
+   *
+   * @returns {Promise<void[]>} A promise that resolves to an array of the results
+   * of the SQL queries to insert the users, or an empty array if there is an error.
+   */
+/******  8a0b7c10-5f84-4685-af2e-4463b802e8db  *******/
 async function seedUsers() {
   console.log('seedUsers function...');
-  const client = await db.connect();
-  console.log('client:', client);
-  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-  await client.sql`
+  const pool = await db.connect();
+  console.log('client:', pool);
+  await pool.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  await pool.sql`
     CREATE TABLE IF NOT EXISTS users (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
@@ -21,7 +32,7 @@ async function seedUsers() {
   const insertedUsers = await Promise.all(
     users.map(async (user) => {
       const hashedPassword = await bcrypt.hash(user.password, 10);
-      return client.sql`
+      return pool.sql`
         INSERT INTO users (id, name, email, password)
         VALUES (${user.id}, ${user.name}, ${user.email}, ${hashedPassword})
         ON CONFLICT (id) DO NOTHING;
@@ -32,10 +43,10 @@ async function seedUsers() {
   return insertedUsers;
 }
 
-async function seedInvoices() {
-  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+async function seedInvoices(pool: any) {
+  await pool.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
-  await client.sql`
+  await pool.sql`
     CREATE TABLE IF NOT EXISTS invoices (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       customer_id UUID NOT NULL,
@@ -47,7 +58,7 @@ async function seedInvoices() {
 
   const insertedInvoices = await Promise.all(
     invoices.map(
-      (invoice) => client.sql`
+      (invoice) => pool.sql`
         INSERT INTO invoices (customer_id, amount, status, date)
         VALUES (${invoice.customer_id}, ${invoice.amount}, ${invoice.status}, ${invoice.date})
         ON CONFLICT (id) DO NOTHING;
@@ -58,10 +69,10 @@ async function seedInvoices() {
   return insertedInvoices;
 }
 
-async function seedCustomers() {
-  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+async function seedCustomers(pool: any) {
+  await pool.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
-  await client.sql`
+  await pool.sql`
     CREATE TABLE IF NOT EXISTS customers (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
@@ -72,7 +83,7 @@ async function seedCustomers() {
 
   const insertedCustomers = await Promise.all(
     customers.map(
-      (customer) => client.sql`
+      (customer) => pool.sql`
         INSERT INTO customers (id, name, email, image_url)
         VALUES (${customer.id}, ${customer.name}, ${customer.email}, ${customer.image_url})
         ON CONFLICT (id) DO NOTHING;
@@ -83,8 +94,8 @@ async function seedCustomers() {
   return insertedCustomers;
 }
 
-async function seedRevenue() {
-  await client.sql`
+async function seedRevenue(pool: any) {
+  await pool.sql`
     CREATE TABLE IF NOT EXISTS revenue (
       month VARCHAR(4) NOT NULL UNIQUE,
       revenue INT NOT NULL
@@ -93,7 +104,7 @@ async function seedRevenue() {
 
   const insertedRevenue = await Promise.all(
     revenue.map(
-      (rev) => client.sql`
+      (rev) => pool.sql`
         INSERT INTO revenue (month, revenue)
         VALUES (${rev.month}, ${rev.revenue})
         ON CONFLICT (month) DO NOTHING;
@@ -105,15 +116,15 @@ async function seedRevenue() {
 }
 
 export async function GET() {
+  const pool = createPool();
   try {
     console.log('creating db connection');
-    const pool = createPool();
     console.log('starting to seed database...');
     await pool.sql`BEGIN`;
     await seedUsers();
-    await seedCustomers();
-    await seedInvoices();
-    await seedRevenue();
+    await seedCustomers(pool);
+    await seedInvoices(pool);
+    await seedRevenue(pool);
     await pool.sql`COMMIT`;
 
     return Response.json({ message: 'Database seeded successfully' });
