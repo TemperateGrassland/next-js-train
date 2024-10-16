@@ -5,9 +5,9 @@ import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 
 
 
-async function seedUsers() {
+async function seedUsers(pool) {
   console.log('seedUsers function...');
-  const pool = await db.connect();
+  // const pool = await db.connect();
   console.log('client:', pool);
   await pool.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
   console.log('created extension...');
