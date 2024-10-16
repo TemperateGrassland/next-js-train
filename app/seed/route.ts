@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt';
-import { db } from '@vercel/postgres';
+import { createPool, db } from '@vercel/postgres';
 import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 
 
@@ -107,18 +107,18 @@ async function seedRevenue() {
 export async function GET() {
   try {
     console.log('creating db connection');
-    const client = await db.connect();
+    const pool = createPool();
     console.log('starting to seed database...');
-    await client.sql`BEGIN`;
+    await pool.sql`BEGIN`;
     await seedUsers();
     await seedCustomers();
     await seedInvoices();
     await seedRevenue();
-    await client.sql`COMMIT`;
+    await pool.sql`COMMIT`;
 
     return Response.json({ message: 'Database seeded successfully' });
   } catch (error) {
-    await client.sql`ROLLBACK`;
+    await pool.sql`ROLLBACK`;
     return Response.json({ error }, { status: 500 });
   }
 }
