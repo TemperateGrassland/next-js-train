@@ -32,11 +32,15 @@ async function seedUsers(pool: any) {
     }),
   );
 
+  console.log('updated user table...');
   return insertedUsers;
 }
 
 async function seedInvoices(pool: any) {
+  console.log('created extension...');
   await pool.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+
+  console.log('created invoices table...');
 
   await pool.sql`
     CREATE TABLE IF NOT EXISTS invoices (
@@ -58,11 +62,16 @@ async function seedInvoices(pool: any) {
     ),
   );
 
+  console.log('updated user table...');
+
   return insertedInvoices;
 }
 
 async function seedCustomers(pool: any) {
+  console.log('created extension...');
   await pool.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+
+  console.log('created customer table...');
 
   await pool.sql`
     CREATE TABLE IF NOT EXISTS customers (
@@ -83,10 +92,12 @@ async function seedCustomers(pool: any) {
     ),
   );
 
+  console.log('updated user table...');
   return insertedCustomers;
 }
 
 async function seedRevenue(pool: any) {
+  console.log('creating revenue table...');
   await pool.sql`
     CREATE TABLE IF NOT EXISTS revenue (
       month VARCHAR(4) NOT NULL UNIQUE,
@@ -104,6 +115,7 @@ async function seedRevenue(pool: any) {
     ),
   );
 
+  console.log('updated revenue table...');
   return insertedRevenue;
 }
 
