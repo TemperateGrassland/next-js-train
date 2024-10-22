@@ -19,6 +19,7 @@ async function seedUsers(pool: any) {
       password TEXT NOT NULL
     );
   `;
+  console.log('created user table...');
 
   const insertedUsers = await Promise.all(
     users.map(async (user) => {
