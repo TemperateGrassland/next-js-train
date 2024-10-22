@@ -112,7 +112,7 @@ export async function GET() {
     console.log('creating db connection');
     console.log('starting to seed database...');
     await pool.sql`BEGIN`;
-    await seedUsers();
+    await seedUsers(pool);
     await seedCustomers(pool);
     await seedInvoices(pool);
     await seedRevenue(pool);
