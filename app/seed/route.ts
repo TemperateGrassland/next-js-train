@@ -5,7 +5,7 @@ import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 
 
 
-async function seedUsers(pool) {
+async function seedUsers(pool: any) {
   console.log('seedUsers function...');
   // const pool = await db.connect();
   console.log('client:', pool);
@@ -13,6 +13,7 @@ async function seedUsers(pool) {
   console.log('created extension...');
   await pool.sql`
     CREATE TABLE IF NOT EXISTS users (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
       name VARCHAR(255) NOT NULL,
       email TEXT NOT NULL UNIQUE,
       password TEXT NOT NULL
