@@ -77,24 +77,35 @@
 // create form
 // submit form to state
 
-'use client'; // For client-side components
+// 'use client'; // For client-side components
 
-import React, { useState } from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css'; // Default CSS for styling
+// import React, { useState } from 'react';
+// import Calendar from 'react-calendar';
+// import 'react-calendar/dist/Calendar.css'; // Default CSS for styling
+
+// export default function Page() {
+//   const [date, setDate] = useState(new Date());
+
+//   const onChange = (newDate: Date) => {
+//     setDate(newDate);
+//   };
+
+//   return (
+//     <div style={{ padding: '20px' }}>
+//       <h1>My Calendar</h1>
+//       <Calendar onChange={onChange} value={date} />
+//       <p>Selected date: {date.toDateString()}</p>
+//     </div>
+//   );
+// }
+
+import DateNameForm from './DateNameForm';
 
 export default function Page() {
-  const [date, setDate] = useState(new Date());
-
-  const onChange = (newDate: Date) => {
-    setDate(newDate);
-  };
-
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>My Calendar</h1>
-      <Calendar onChange={onChange} value={date} />
-      <p>Selected date: {date.toDateString()}</p>
+    <div>
+      <DateNameForm />
     </div>
   );
 }
+
