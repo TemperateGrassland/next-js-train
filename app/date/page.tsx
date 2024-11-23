@@ -99,7 +99,7 @@
 //   );
 // }
 
-import DateNameForm from './DateNameForm';
+import DateNameForm from '@/app/ui/DateNameForm';
 
 export default function Page() {
   return (
