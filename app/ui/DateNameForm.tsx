@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // Import the styles for the calendar
 
+'use client'
+
 function DateNameForm() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [name, setName] = useState('');
