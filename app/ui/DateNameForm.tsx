@@ -11,16 +11,18 @@ function DateNameForm() {
   const [name, setName] = useState('');
   const [entries, setEntries] = useState([]);
 
-  const handleDateChange = (date) => {
+  const handleDateChange = (date: Date) => {
     setSelectedDate(date);
   };
 
-  const handleNameChange = (event) => {
+  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
+    const [entries, setEntries] = useState<{ date: Date; name: string }[]>([]);
+
 
     // Add the date-name pair to the list of entries
     setEntries([...entries, { date: selectedDate, name }]);
