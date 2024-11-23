@@ -17,6 +17,7 @@
     "next-auth": "5.0.0-beta.19",
     "postcss": "8.4.38",
     "react": "19.0.0-rc-f38c22b244-20240704",
+    "react-big-calendar": "^1.16.0",
     "react-dom": "19.0.0-rc-f38c22b244-20240704",
     "tailwindcss": "3.4.4",
     "typescript": "5.5.2",
