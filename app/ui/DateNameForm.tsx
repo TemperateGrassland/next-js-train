@@ -11,12 +11,16 @@ function DateNameForm() {
   const [name, setName] = useState('');
   const [entries, setEntries] = useState([]);
 
-  const handleDateChange = (date: Date) => {
-    setSelectedDate(date);
+  const handleDateChange = () => {
+    if (date instanceof Date) {
+      setSelectedDate(date);
+    } else {
+      setSelectedDate(new Date(1992, 4, 6));
+    }
   };
 
-  const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value);
+  const handleNameChange = (name: string) => {
+    setName(name);
   };
 
   const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +43,7 @@ function DateNameForm() {
         <Calendar
           onChange={handleDateChange}
           value={selectedDate}
+          view="year"  
         />
       </div>
 
