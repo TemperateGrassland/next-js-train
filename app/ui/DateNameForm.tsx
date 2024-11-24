@@ -80,7 +80,7 @@ function DateNameForm() {
       <div style={{ marginTop: '30px' }}>
         <h3>Entries:</h3>
         <ul>
-          {entries.map((entry, index) => (
+          {entries.map((entry: { date: Date; name: string }, index) => (
             <li key={index}>
               {entry.name} - {entry.date.toDateString()}
             </li>
