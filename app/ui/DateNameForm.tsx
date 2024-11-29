@@ -11,7 +11,7 @@ const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [name, setName] = useState('');
   const [entries, setEntries] = useState([]);
 
-  const handleDateChange = (value: Date, event: MouseEvent) => {
+  const handleDateChange = (value: Date, event: React.MouseEvent<HTMLButtonElement>) => {
     if (value instanceof Date) {
       setSelectedDate(value);
     }
