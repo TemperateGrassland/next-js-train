@@ -11,10 +11,11 @@ const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [name, setName] = useState('');
   const [entries, setEntries] = useState([]);
 
-  const handleDateChange = (value: Date) => {
-    setSelectedDate(value);
+  const handleDateChange = (value: Date, event: MouseEvent) => {
+    if (value instanceof Date) {
+      setSelectedDate(value);
+    }
   };
-
   const handleNameChange = (name: string) => {
     setName(name);
   };
