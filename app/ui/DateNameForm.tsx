@@ -4,6 +4,7 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // Import the styles for the calendar
+import { Value } from 'react-calendar/dist/esm/shared/types.js';
 
 
 function DateNameForm() {
@@ -11,7 +12,7 @@ const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [name, setName] = useState('');
   const [entries, setEntries] = useState([]);
 
-  const handleDateChange = (value: Date, event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleDateChange = (value: Value, event: React.MouseEvent<HTMLButtonElement>) => {
     if (value instanceof Date) {
       setSelectedDate(value);
     }
@@ -20,7 +21,7 @@ const [selectedDate, setSelectedDate] = useState<Date>(new Date());
     setName(name);
   };
 
-  const handleSubmit = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSubmit = (event: FormEventHandler<T>) => {
     event.preventDefault();
     const [entries, setEntries] = useState<{ date: Date; name: string }[]>([]);
 
