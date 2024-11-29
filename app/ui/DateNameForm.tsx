@@ -7,16 +7,12 @@ import 'react-calendar/dist/Calendar.css'; // Import the styles for the calendar
 
 
 function DateNameForm() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
+const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [name, setName] = useState('');
   const [entries, setEntries] = useState([]);
 
-  const handleDateChange = () => {
-    if (date instanceof Date) {
-      setSelectedDate(date);
-    } else {
-      setSelectedDate(new Date(1992, 4, 6));
-    }
+  const handleDateChange = (value: Date) => {
+    setSelectedDate(value);
   };
 
   const handleNameChange = (name: string) => {
