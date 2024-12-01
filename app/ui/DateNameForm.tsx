@@ -31,7 +31,7 @@ const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   return (
     <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif' }}>
-      <h2>Date and Name Association</h2>
+      <h2>Important dates and even more important names:</h2>
       
       {/* Calendar Component */}
       <div>
