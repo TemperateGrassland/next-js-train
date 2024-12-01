@@ -9,7 +9,7 @@ import { Value } from 'react-calendar/dist/esm/shared/types.js';
 function DateNameForm() {
 const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [name, setName] = useState('');
-  const [entries, setEntries] = useState([]);
+  const [entries, setEntries] = useState<{ date: Date; name: string }[]>([])
 
   const handleDateChange = (value: Value, event: React.MouseEvent<HTMLButtonElement>) => {
     if (value instanceof Date) {
@@ -24,9 +24,6 @@ const [selectedDate, setSelectedDate] = useState<Date>(new Date());
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const [entries, setEntries] = useState<{ date: Date; name: string }[]>([]);
-
-
     // Add the date-name pair to the list of entries
     setEntries([...entries, { date: selectedDate, name }]);
     setName(''); // Clear the name field after submission
