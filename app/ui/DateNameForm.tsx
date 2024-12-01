@@ -5,7 +5,6 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css'; // Import the styles for the calendar
 import { Value } from 'react-calendar/dist/esm/shared/types.js';
-import type { FormEventHandler } from 'react';
 
 function DateNameForm() {
 const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -17,8 +16,9 @@ const [selectedDate, setSelectedDate] = useState<Date>(new Date());
       setSelectedDate(value);
     }
   };
-  const handleNameChange = (name: string) => {
-    setName(name);
+  const handleNameChange = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setName(event.currentTarget.value);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
