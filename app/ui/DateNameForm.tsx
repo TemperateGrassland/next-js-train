@@ -19,6 +19,7 @@ const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setName(event.currentTarget.value);
+    
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -41,7 +42,7 @@ const [selectedDate, setSelectedDate] = useState<Date>(new Date());
         <Calendar
           onChange={handleDateChange}
           value={selectedDate}
-          view="year"  
+          view="month"  
         />
       </div>
 
