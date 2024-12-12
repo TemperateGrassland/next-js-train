@@ -153,4 +153,4 @@ const important_dates = [
   }
 ]
 
-export { users, customers, invoices, revenue };
+export { users, customers, invoices, revenue, important_dates };
