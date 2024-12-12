@@ -2,9 +2,6 @@ import bcrypt from 'bcrypt';
 import { createPool, db } from '@vercel/postgres';
 import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 
-
-
-
 async function seedUsers(pool: any) {
   console.log('seedUsers function...');
   // const pool = await db.connect();
@@ -119,16 +116,31 @@ async function seedRevenue(pool: any) {
   return insertedRevenue;
 }
 
+async function seedImportantDates(pool: any) {
+  console.log('creating important dates table...');
+  // -- Create important_date table with a foreign key to customers
+await pool.sql`
+    CREATE TABLE IF NOT EXISTS important_date (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      customer_id UUID NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
+      date DATE NOT NULL,
+      description VARCHAR(255) NOT NULL
+    );
+`;
+}
+
 export async function GET() {
   const pool = createPool();
   try {
     console.log('creating db connection');
     console.log('starting to seed database...');
     await pool.sql`BEGIN`;
+    await pool.sql`DROP TABLE IF EXISTS invoices, customers, revenue, users;`;
     await seedUsers(pool);
     await seedCustomers(pool);
     await seedInvoices(pool);
     await seedRevenue(pool);
+    await 
     await pool.sql`COMMIT`;
 
     return Response.json({ message: 'Database seeded successfully' });
