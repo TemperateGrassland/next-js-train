@@ -135,7 +135,7 @@ export async function GET() {
     console.log('creating db connection');
     console.log('starting to seed database...');
     await pool.sql`BEGIN`;
-    await pool.sql`DROP TABLE IF EXISTS important_dates, invoices, customers, revenue, users;`;
+    await pool.sql`DROP TABLE IF EXISTS important_date, invoices, customers, revenue, users;`;
     await seedUsers(pool);
     await seedCustomers(pool);
     await seedInvoices(pool);
