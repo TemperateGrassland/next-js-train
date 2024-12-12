@@ -140,7 +140,7 @@ export async function GET() {
     await seedCustomers(pool);
     await seedInvoices(pool);
     await seedRevenue(pool);
-    await 
+    await seedImportantDates(pool);
     await pool.sql`COMMIT`;
 
     return Response.json({ message: 'Database seeded successfully' });
