@@ -148,7 +148,7 @@ const important_dates = [
   {
     id: 1,
     customer_id: customers[3].id,
-    date: '1992-04-92',
+    date: '1992-06-04',
     description : 'Mollys Birthday'
   }
 ]
