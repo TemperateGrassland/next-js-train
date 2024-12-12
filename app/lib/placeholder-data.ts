@@ -150,6 +150,12 @@ const important_dates = [
     customer_id: customers[3].id,
     date: '1992-06-04',
     description : 'Mollys Birthday'
+  },
+  {
+    id: 1,
+    customer_id: customers[3].id,
+    date: '1992-05-06',
+    description : 'Charlie Birthday'
   }
 ]
 
