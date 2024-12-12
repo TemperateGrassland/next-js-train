@@ -144,4 +144,13 @@ const revenue = [
   { month: 'Dec', revenue: 4800 },
 ];
 
+const important_dates = [
+  {
+    id: 1,
+    customer_id: customers[3].id,
+    date: '1992-04-92',
+    description : 'Mollys Birthday'
+  }
+]
+
 export { users, customers, invoices, revenue };
