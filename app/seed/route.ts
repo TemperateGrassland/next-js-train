@@ -133,8 +133,8 @@ const insertedImportantDates = await Promise.all(
   important_dates.map(async (important_date) => {
     try {
       await pool.sql`
-        INSERT INTO important_date (id, customer_id, date, description)
-        VALUES (${important_date.id}, ${important_date.customer_id}, ${important_date.date}, ${important_date.description})
+        INSERT INTO important_date (customer_id, date, description)
+        VALUES (${important_date.customer_id}, ${important_date.date}, ${important_date.description})
         ON CONFLICT (id) DO NOTHING;
       `;
     } catch (err) {
