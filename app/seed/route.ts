@@ -1,6 +1,7 @@
 import bcrypt from 'bcrypt';
 import { createPool, db } from '@vercel/postgres';
 import { invoices, customers, revenue, users, important_dates } from '../lib/placeholder-data';
+import { error } from 'console';
 
 async function seedUsers(pool: any) {
   console.log('seedUsers function...');
@@ -129,14 +130,18 @@ await pool.sql`
 `;
 
 const insertedImportantDates = await Promise.all(
-  important_dates.map(
-    (important_dates) => pool.sql`
-      INSERT INTO important_date (id, customer_id, date, description)
-      VALUES (${important_dates.id}, ${important_dates.customer_id}, ${important_dates.date}, ${important_dates.description})
-      ON CONFLICT (id) DO NOTHING;
-    `,
-  ),
-);  
+  important_dates.map(async (important_date) => {
+    try {
+      await pool.sql`
+        INSERT INTO important_date (id, customer_id, date, description)
+        VALUES (${important_date.id}, ${important_date.customer_id}, ${important_date.date}, ${important_date.description})
+        ON CONFLICT (id) DO NOTHING;
+      `;
+    } catch (err) {
+      console.error(err);
+    }
+  }),
+);
 
 console.log('updated important dates table...');
 return insertedImportantDates;
